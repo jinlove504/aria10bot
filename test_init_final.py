@@ -1650,14 +1650,14 @@ class mainCog(commands.Cog):
 				wks.update_acell(basicSetting[15], SearchID)
 
 				result = wks.acell(basicSetting[16]).value
-				result1 = wks.acell(basicSetting[20]).value
-				result2 = wks.acell(basicSetting[21]).value
-				result3 = wks.acell(basicSetting[22]).value
-				result4 = wks.acell(basicSetting[23]).value
-				result5 = wks.acell(basicSetting[24]).value
-				result6 = wks.acell(basicSetting[25]).value
-				result7 = wks.acell(basicSetting[26]).value
-				result8 = wks.acell(basicSetting[27]).value
+				result1 = wks.acell(basicSetting[21]).value
+				result2 = wks.acell(basicSetting[22]).value
+				result3 = wks.acell(basicSetting[23]).value
+				result4 = wks.acell(basicSetting[24]).value
+				result5 = wks.acell(basicSetting[25]).value
+				result6 = wks.acell(basicSetting[26]).value
+				result7 = wks.acell(basicSetting[27]).value
+				result8 = wks.acell(basicSetting[28]).value
 
 				embed = discord.Embed(
 						description= '클래식&혁명군\n' + SearchID + ' 총 다이아 : ' + result + '\n정의 : ' + result1 + '\n지으니 : ' + result2 + '\n꽃신 : ' + result3 + '\n킬금딜금한조 : ' + result4 + '\n살아있는전설 : ' + result5 + '\n프리야 : ' + result6 + '\n신의맹세 : ' + result7 + '\n비트딸기즙 : ' + result8,
