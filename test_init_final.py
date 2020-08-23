@@ -229,6 +229,14 @@ def init():
 	basicSetting.append(inputData[5][14:])     #basicSetting[18] : kill채널 ID
 	basicSetting.append(inputData[6][16:])     #basicSetting[19] : racing 채널 ID
 	basicSetting.append(inputData[7][14:])     #basicSetting[20] : item 채널 ID
+	basicSetting.append(inputData[24][14:])     #basicSetting[21] : 출력 셀2
+	basicSetting.append(inputData[25][14:])     #basicSetting[22] : 출력 셀3
+	basicSetting.append(inputData[26][14:])     #basicSetting[23] : 출력 셀4
+	basicSetting.append(inputData[27][14:])     #basicSetting[24] : 출력 셀5
+	basicSetting.append(inputData[28][14:])     #basicSetting[25] : 출력 셀6
+	basicSetting.append(inputData[29][14:])     #basicSetting[26] : 출력 셀7
+	basicSetting.append(inputData[30][14:])     #basicSetting[27] : 출력 셀8
+	basicSetting.append(inputData[31][14:])     #basicSetting[28] : 출력 셀9
 
 	############## 보탐봇 명령어 리스트 #####################
 	for i in range(len(command_inputData)):
@@ -1632,9 +1640,17 @@ class mainCog(commands.Cog):
 				wks.update_acell(basicSetting[15], SearchID)
 
 				result = wks.acell(basicSetting[16]).value
+				result1 = wks.acell(basicSetting[21]).value
+				result2 = wks.acell(basicSetting[22]).value
+				result3 = wks.acell(basicSetting[23]).value
+				result4 = wks.acell(basicSetting[24]).value
+				result5 = wks.acell(basicSetting[25]).value
+				result6 = wks.acell(basicSetting[26]).value
+				result7 = wks.acell(basicSetting[27]).value
+				result8 = wks.acell(basicSetting[28]).value
 
 				embed = discord.Embed(
-						description= '```' + SearchID + ' 님이 받을 다이야는 ' + result + ' 다이야 입니다.```',
+						description= '클래식&혁명군\n' + SearchID + ' 총 다이아 : ' + result + '\n정의 : ' + result1 + '\n지으니 : ' + result2 + '\n꽃신 : ' + result3 + '\n킬금딜금한조 : ' + result4 + '\n살아있는전설 : ' + result5 + '\n프리야 : ' + result6 + '\n신의맹세 : ' + result7 + '\n비트딸기즙 : ' + result8,
 						color=0xff00ff
 						)
 				await ctx.send(embed=embed, tts=False)
