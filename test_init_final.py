@@ -237,6 +237,15 @@ def init():
 	basicSetting.append(inputData[26][14:])     #basicSetting[26] : 출력 셀7
 	basicSetting.append(inputData[27][14:])     #basicSetting[27] : 출력 셀8
 	basicSetting.append(inputData[28][14:])     #basicSetting[28] : 출력 셀9
+	print(basicSetting[21])
+	print(basicSetting[22])
+	print(basicSetting[23])
+	print(basicSetting[24])
+	print(basicSetting[25])
+	print(basicSetting[26])
+	print(basicSetting[27])
+	print(basicSetting[28])
+
 
 	############## 보탐봇 명령어 리스트 #####################
 	for i in range(len(command_inputData)):
