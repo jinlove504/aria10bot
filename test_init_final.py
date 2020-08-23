@@ -229,14 +229,14 @@ def init():
 	basicSetting.append(inputData[5][14:])     #basicSetting[18] : kill채널 ID
 	basicSetting.append(inputData[6][16:])     #basicSetting[19] : racing 채널 ID
 	basicSetting.append(inputData[7][14:])     #basicSetting[20] : item 채널 ID
-	basicSetting.append(inputData[24][14:])     #basicSetting[21] : 출력 셀2
-	basicSetting.append(inputData[25][14:])     #basicSetting[22] : 출력 셀3
-	basicSetting.append(inputData[26][14:])     #basicSetting[23] : 출력 셀4
-	basicSetting.append(inputData[27][14:])     #basicSetting[24] : 출력 셀5
-	basicSetting.append(inputData[28][14:])     #basicSetting[25] : 출력 셀6
-	basicSetting.append(inputData[29][14:])     #basicSetting[26] : 출력 셀7
-	basicSetting.append(inputData[30][14:])     #basicSetting[27] : 출력 셀8
-	basicSetting.append(inputData[31][14:])     #basicSetting[28] : 출력 셀9
+	basicSetting.append(inputData[21][14:])     #basicSetting[21] : 출력 셀2
+	basicSetting.append(inputData[22][14:])     #basicSetting[22] : 출력 셀3
+	basicSetting.append(inputData[23][14:])     #basicSetting[23] : 출력 셀4
+	basicSetting.append(inputData[24][14:])     #basicSetting[24] : 출력 셀5
+	basicSetting.append(inputData[25][14:])     #basicSetting[25] : 출력 셀6
+	basicSetting.append(inputData[26][14:])     #basicSetting[26] : 출력 셀7
+	basicSetting.append(inputData[27][14:])     #basicSetting[27] : 출력 셀8
+	basicSetting.append(inputData[28][14:])     #basicSetting[28] : 출력 셀9
 
 	############## 보탐봇 명령어 리스트 #####################
 	for i in range(len(command_inputData)):
