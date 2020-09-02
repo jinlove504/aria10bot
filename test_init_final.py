@@ -1650,7 +1650,7 @@ class mainCog(commands.Cog):
 				result8 = wks.acell(basicSetting[28]).value
 
 				embed = discord.Embed(
-						description= '클래식&혁명군\n' + SearchID + ' 총 다이아 : ' + result + '\n정의 : ' + result1 + '\n지으니 : ' + result2 + '\n꽃신 : ' + result3 + '\n킬금딜금한조 : ' + result4 + '\n살아있는전설 : ' + result5 + '\n프리야 : ' + result6 + '\n신의맹세 : ' + result7 + '\n비트딸기즙 : ' + result8,
+						description= '클래식&혁명군\n' + SearchID + ' 총 다이아 : ' + result + '\n정의 : ' + result1 + '\n지으니 : ' + result2 + '\n꽃신 : ' + result3 + '\n킬금딜금한조 : ' + result4 + '\n살아있는전설 : ' + result5 + '\n잉꼬 : ' + result6 + '\n하프물범 : ' + result7 + '\n오릭스 : ' + result8,
 						color=0xff00ff
 						)
 				await ctx.send(embed=embed, tts=False)
