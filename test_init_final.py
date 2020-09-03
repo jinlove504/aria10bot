@@ -235,6 +235,7 @@ def init():
 	basicSetting.append(inputData[25][14:])     #basicSetting[26] : 출력 셀7
 	basicSetting.append(inputData[26][14:])     #basicSetting[27] : 출력 셀8
 	basicSetting.append(inputData[27][14:])     #basicSetting[28] : 출력 셀9
+	basicSetting.append(inputData[28][14:])     #basicSetting[29] : 출력 셀9
 
 	############## 보탐봇 명령어 리스트 #####################
 	for i in range(len(command_inputData)):
@@ -1648,9 +1649,10 @@ class mainCog(commands.Cog):
 				result6 = wks.acell(basicSetting[26]).value
 				result7 = wks.acell(basicSetting[27]).value
 				result8 = wks.acell(basicSetting[28]).value
+				result9 = wks.acell(basicSetting[29]).value
 
 				embed = discord.Embed(
-						description= '클래식&혁명군\n' + SearchID + ' 총 다이아 : ' + result + '\n정의 : ' + result1 + '\n지으니 : ' + result2 + '\n꽃신 : ' + result3 + '\n킬금딜금한조 : ' + result4 + '\n살아있는전설 : ' + result5 + '\n잉꼬 : ' + result6 + '\n하프물범 : ' + result7 + '\n오릭스 : ' + result8,
+						description= '클래식&혁명군\n' + SearchID + ' 총 다이아 : ' + result + '\n정의 : ' + result1 + '\n지으니 : ' + result2 + '\n꽃신 : ' + result3 + '\n킬금딜금한조 : ' + result4 + '\n살아있는전설 : ' + result5 + '\n신의자비 : ' + result6 + '\n잉꼬 : ' + result7 + '\n하프물범 : ' + result8 + '\n오릭스 : ' + result9,
 						color=0xff00ff
 						)
 				await ctx.send(embed=embed, tts=False)
