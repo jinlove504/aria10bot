@@ -1816,7 +1816,7 @@ class mainCog(commands.Cog):
 				result9 = wks.acell(basicSetting[30]).value
 
 				embed = discord.Embed(
-						description= '은하수&풀문\n' + SearchID + ' 총 다이아 : ' + result + '\n노란별 : ' + result1 + '\n땡별 : ' + result2 + '\n햇문 : ' + result3 + '\n꼬문 : ' + result4 + '\n공석 : ' + result5 + '\n공석 : ' + result6 + '\n공석 : ' + result7 + '\n공석 : ' + result8 + '\n공석 : ' + result9,
+						description= '은하수&풀문\n' + SearchID + ' 총 다이아 : ' + result + '\n노란별 : ' + result1 + '\n땡별 : ' + result2 + '\n햇문 : ' + result3 + '\n꼬문 : ' + result4 + '\n랑문 : ' + result5 + '\n공석 : ' + result6 + '\n공석 : ' + result7 + '\n공석 : ' + result8 + '\n공석 : ' + result9,
 						color=0xff00ff
 						)
 				await ctx.send(embed=embed, tts=False)
