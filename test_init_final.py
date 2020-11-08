@@ -243,15 +243,16 @@ def init():
 		basicSetting.append(inputData[6][16:])     #basicSetting[19] : racing 채널 ID
 		basicSetting.append(inputData[7][14:])     #basicSetting[20] : item 채널 ID
 		basicSetting.append(inputData[20][12:])     #basicSetting[21] : voice_use
-		basicSetting.append(inputData[21][14:])     #basicSetting[22] : 출력 셀2
-		basicSetting.append(inputData[22][14:])     #basicSetting[23] : 출력 셀3
-		basicSetting.append(inputData[23][14:])     #basicSetting[24] : 출력 셀4
-		basicSetting.append(inputData[24][14:])     #basicSetting[25] : 출력 셀5
-		basicSetting.append(inputData[25][14:])     #basicSetting[26] : 출력 셀6
-		basicSetting.append(inputData[26][14:])     #basicSetting[27] : 출력 셀7
-		basicSetting.append(inputData[27][14:])     #basicSetting[28] : 출력 셀8
-		basicSetting.append(inputData[28][14:])     #basicSetting[29] : 출력 셀9
+		basicSetting.append(inputData[11][11:])     #basicSetting[22] : mungChk2
+		basicSetting.append(inputData[22][14:])     #basicSetting[23] : 출력 셀2
+		basicSetting.append(inputData[23][14:])     #basicSetting[24] : 출력 셀3
+		basicSetting.append(inputData[24][14:])     #basicSetting[25] : 출력 셀4
+		basicSetting.append(inputData[25][14:])     #basicSetting[26] : 출력 셀5
+		basicSetting.append(inputData[26][14:])     #basicSetting[27] : 출력 셀6
+		basicSetting.append(inputData[27][14:])     #basicSetting[28] : 출력 셀7
+		basicSetting.append(inputData[28][14:])     #basicSetting[29] : 출력 셀8
 		basicSetting.append(inputData[29][14:])     #basicSetting[30] : 출력 셀9
+		basicSetting.append(inputData[30][14:])     #basicSetting[31] : 출력 셀9
 	except:
 		raise Exception("[test_setting.ini] 파일 양식을 확인하세요.")
 
@@ -1805,18 +1806,18 @@ class mainCog(commands.Cog):
 				wks.update_acell(basicSetting[15], SearchID)
 
 				result = wks.acell(basicSetting[16]).value
-				result1 = wks.acell(basicSetting[22]).value
-				result2 = wks.acell(basicSetting[23]).value
-				result3 = wks.acell(basicSetting[24]).value
-				result4 = wks.acell(basicSetting[25]).value
-				result5 = wks.acell(basicSetting[26]).value
-				result6 = wks.acell(basicSetting[27]).value
-				result7 = wks.acell(basicSetting[28]).value
-				result8 = wks.acell(basicSetting[29]).value
-				result9 = wks.acell(basicSetting[30]).value
+				result1 = wks.acell(basicSetting[23]).value
+				result2 = wks.acell(basicSetting[24]).value
+				result3 = wks.acell(basicSetting[25]).value
+				result4 = wks.acell(basicSetting[26]).value
+				result5 = wks.acell(basicSetting[27]).value
+				result6 = wks.acell(basicSetting[28]).value
+				result7 = wks.acell(basicSetting[29]).value
+				result8 = wks.acell(basicSetting[30]).value
+				result9 = wks.acell(basicSetting[31]).value
 
 				embed = discord.Embed(
-						description= '은하수&풀문\n' + SearchID + ' 총 다이아 : ' + result + '\n노란별 : ' + result1 + '\n땡별 : ' + result2 + '\n햇문 : ' + result3 + '\n꼬문 : ' + result4 + '\n랑문 : ' + result5 + '\n작은곰별 : ' + result6 + '\n공석 : ' + result7 + '\n공석 : ' + result8 + '\n공석 : ' + result9,
+						description= '베스킨&라빈스\n' + SearchID + ' 총 다이아 : ' + result + '\n쿠앤크 : ' + result1 + '\n녹아봐 : ' + result2 + '\n미니멜츠 : ' + result3 + '\n앙꼬바 : ' + result4 + '\n디져봐 : ' + result5 + '\n녹차마루 : ' + result6 + '\n슈퍼콘 : ' + result7 + '\n공석 : ' + result8 + '\n공석 : ' + result9,
 						color=0xff00ff
 						)
 				await ctx.send(embed=embed, tts=False)
