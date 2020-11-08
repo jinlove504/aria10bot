@@ -223,26 +223,26 @@ def init():
 	try:
 		basicSetting.append(inputData[0][11:])     #basicSetting[0] : timezone
 		basicSetting.append(inputData[8][15:])     #basicSetting[1] : before_alert
-		basicSetting.append(inputData[10][10:])     #basicSetting[2] : mungChk
+		basicSetting.append(inputData[10][11:])     #basicSetting[2] : mungChk1
 		basicSetting.append(inputData[9][16:])     #basicSetting[3] : before_alert1
-		basicSetting.append(inputData[13][14:16])  #basicSetting[4] : restarttime 시
-		basicSetting.append(inputData[13][17:])    #basicSetting[5] : restarttime 분
+		basicSetting.append(inputData[14][14:16])  #basicSetting[4] : restarttime 시
+		basicSetting.append(inputData[14][17:])    #basicSetting[5] : restarttime 분
 		basicSetting.append(inputData[1][15:])     #basicSetting[6] : voice채널 ID
 		basicSetting.append(inputData[2][14:])     #basicSetting[7] : text채널 ID
 		basicSetting.append(inputData[3][16:])     #basicSetting[8] : 사다리 채널 ID
-		basicSetting.append(inputData[12][14:])    #basicSetting[9] : !ㅂ 출력 수
-		basicSetting.append(inputData[16][11:])    #basicSetting[10] : json 파일명
+		basicSetting.append(inputData[13][14:])    #basicSetting[9] : !ㅂ 출력 수
+		basicSetting.append(inputData[17][11:])    #basicSetting[10] : json 파일명
 		basicSetting.append(inputData[4][17:])     #basicSetting[11] : 정산 채널 ID
-		basicSetting.append(inputData[15][12:])    #basicSetting[12] : sheet 이름
-		basicSetting.append(inputData[14][16:])    #basicSetting[13] : restart 주기
-		basicSetting.append(inputData[17][12:])    #basicSetting[14] : 시트 이름
-		basicSetting.append(inputData[18][12:])    #basicSetting[15] : 입력 셀
-		basicSetting.append(inputData[19][13:])    #basicSetting[16] : 출력 셀
-		basicSetting.append(inputData[11][13:])     #basicSetting[17] : 멍삭제횟수
+		basicSetting.append(inputData[16][12:])    #basicSetting[12] : sheet 이름
+		basicSetting.append(inputData[15][16:])    #basicSetting[13] : restart 주기
+		basicSetting.append(inputData[18][12:])    #basicSetting[14] : 시트 이름
+		basicSetting.append(inputData[19][12:])    #basicSetting[15] : 입력 셀
+		basicSetting.append(inputData[20][13:])    #basicSetting[16] : 출력 셀
+		basicSetting.append(inputData[12][13:])     #basicSetting[17] : 멍삭제횟수
 		basicSetting.append(inputData[5][14:])     #basicSetting[18] : kill채널 ID
 		basicSetting.append(inputData[6][16:])     #basicSetting[19] : racing 채널 ID
 		basicSetting.append(inputData[7][14:])     #basicSetting[20] : item 채널 ID
-		basicSetting.append(inputData[20][12:])     #basicSetting[21] : voice_use
+		basicSetting.append(inputData[21][12:])     #basicSetting[21] : voice_use
 		basicSetting.append(inputData[11][11:])     #basicSetting[22] : mungChk2
 		basicSetting.append(inputData[22][14:])     #basicSetting[23] : 출력 셀2
 		basicSetting.append(inputData[23][14:])     #basicSetting[24] : 출력 셀3
@@ -253,6 +253,8 @@ def init():
 		basicSetting.append(inputData[28][14:])     #basicSetting[29] : 출력 셀8
 		basicSetting.append(inputData[29][14:])     #basicSetting[30] : 출력 셀9
 		basicSetting.append(inputData[30][14:])     #basicSetting[31] : 출력 셀9
+	except:
+	except:
 	except:
 		raise Exception("[test_setting.ini] 파일 양식을 확인하세요.")
 
@@ -1834,7 +1836,6 @@ class mainCog(commands.Cog):
 				await ctx.send(embed=embed, tts=False)
 		else:
 			return
-
 	################ 보스타임 일괄 설정 ################
 	@commands.command(name=command[14][0], aliases=command[14][1:])
 	async def allBossInput_(self, ctx):
