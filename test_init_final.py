@@ -254,8 +254,6 @@ def init():
 		basicSetting.append(inputData[29][14:])     #basicSetting[30] : 출력 셀9
 		basicSetting.append(inputData[30][14:])     #basicSetting[31] : 출력 셀9
 	except:
-	except:
-	except:
 		raise Exception("[test_setting.ini] 파일 양식을 확인하세요.")
 
 	############## 보탐봇 명령어 리스트 #####################
