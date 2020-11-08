@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*- 
 
-################ Server Ver. 22 (2020. 9. 29.) #####################
+################ Server Ver. 23 (2020. 11. 2.) #####################
 
 import sys, os
 import asyncio, discord, aiohttp
@@ -331,12 +331,12 @@ def init():
 		if endTime < tmp_now :			
 			endTime = endTime + datetime.timedelta(days=int(basicSetting[13]))
 	
-	bossNum = int(len(boss_inputData)/5)
+	bossNum = int(len(boss_inputData)/6)
 
 	fixed_bossNum = int(len(fixed_inputData)/6) 
 	
 	for i in range(bossNum):
-		tmp_bossData.append(boss_inputData[i*5:i*5+5])
+		tmp_bossData.append(boss_inputData[i*6:i*6+6])
 
 	for i in range(fixed_bossNum):
 		tmp_fixed_bossData.append(fixed_inputData[i*6:i*6+6]) 
@@ -359,6 +359,7 @@ def init():
 		f.append(tmp_bossData[j][4][13:])         #bossData[4] : 젠 알림멘트
 		f.append(tmp_bossData[j][1][tmp_len+1:])  #bossData[5] : 분
 		f.append('')                              #bossData[6] : 메세지
+		f.append(tmp_bossData[j][5][11:])		  #bossData[8] : 멍체크시간종류
 		bossData.append(f)
 		f = []
 		bossTime.append(datetime.datetime.now()+datetime.timedelta(days=365, hours = int(basicSetting[0])))
@@ -591,7 +592,10 @@ async def dbLoad():
 					tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
 					tmp_now = tmp_now.replace(year = int(years1), month = int(months1), day = int(days1), hour=int(hours1), minute=int(minutes1), second = int(seconds1))
 
-					tmp_now_chk = tmp_now + datetime.timedelta(minutes = int(basicSetting[2]))
+					if bossData[j][7] == "1":
+						tmp_now_chk = tmp_now + datetime.timedelta(minutes = int(basicSetting[2]))
+					else:
+						tmp_now_chk = tmp_now + datetime.timedelta(minutes = int(basicSetting[22]))
 
 					if tmp_now_chk < now2 : 
 						deltaTime = datetime.timedelta(hours = int(bossData[j][1]), minutes = int(bossData[j][5]))
@@ -876,7 +880,8 @@ class taskCog(commands.Cog):
 			now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
 			priv0 = now+datetime.timedelta(minutes=int(basicSetting[3]))
 			priv = now+datetime.timedelta(minutes=int(basicSetting[1]))
-			aftr = now+datetime.timedelta(minutes=int(0-int(basicSetting[2])))
+			tmp_aftr1 = now+datetime.timedelta(minutes=int(0-int(basicSetting[2])))
+			tmp_aftr2 = now+datetime.timedelta(minutes=int(0-int(basicSetting[22])))
 
 			if channel != '':			
 				################ 보탐봇 재시작 ################ 
@@ -1013,8 +1018,12 @@ class taskCog(commands.Cog):
 
 					################ 보스 자동 멍 처리 ################ 
 					if bossMungFlag[i] == True:
+						if bossData[i][7] == "1":
+							aftr = tmp_aftr1
+						else:
+							aftr = tmp_aftr2
 						if (bossTime[i]+datetime.timedelta(days=-365)) <= aftr:
-							if basicSetting[2] != '0':
+							if basicSetting[2] != '0' and basicSetting[22] != '0' :
 								if int(basicSetting[17]) <= bossMungCnt[i] and int(basicSetting[17]) != 0:
 									bossTime[i] = datetime.datetime.now()+datetime.timedelta(days=365, hours = int(basicSetting[0]))
 									tmp_bossTime[i] =  datetime.datetime.now()+datetime.timedelta(days=365, hours = int(basicSetting[0]))
@@ -1244,6 +1253,7 @@ class mainCog(commands.Cog):
 			command_list += ','.join(command[36]) + ' [거래소금액] [실거래금액] (거래소세금)\n'     #!페이백
 			command_list += ','.join(command[13]) + ' [아이디]\n'     #!정산
 			command_list += ','.join(command[14]) + ' 또는 ' + ','.join(command[14]) + ' 0000, 00:00\n'     #!보스일괄
+			command_list += ','.join(command[40]) + ' 또는 ' + ','.join(command[40]) + ' 0000, 00:00\n'     #!멍일괄
 			command_list += ','.join(command[15]) + '\n'     #!q
 			command_list += ','.join(command[16]) + ' [할말]\n'     #!v
 			command_list += ','.join(command[17]) + '\n'     #!리젠
@@ -1290,7 +1300,7 @@ class mainCog(commands.Cog):
 	async def setting_(self, ctx):	
 		#print (ctx.message.channel.id)
 		if ctx.message.channel.id == basicSetting[7]:
-			setting_val = '보탐봇버전 : Server Ver. 22 (2020. 9. 29.)\n'
+			setting_val = '보탐봇버전 : Server Ver. 23 (2020. 11. 2.)\n'
 			if basicSetting[6] != "" :
 				setting_val += '음성채널 : ' + self.bot.get_channel(basicSetting[6]).name + '\n'
 			setting_val += '텍스트채널 : ' + self.bot.get_channel(basicSetting[7]).name +'\n'
@@ -1306,7 +1316,8 @@ class mainCog(commands.Cog):
 				setting_val += '아이템채널 : ' + self.bot.get_channel(int(basicSetting[20])).name + '\n'
 			setting_val += '보스젠알림시간1 : ' + basicSetting[1] + ' 분 전\n'
 			setting_val += '보스젠알림시간2 : ' + basicSetting[3] + ' 분 전\n'
-			setting_val += '보스멍확인시간 : ' + basicSetting[2] + ' 분 후\n'
+			setting_val += '보스멍확인시간1 : ' + basicSetting[2] + ' 분 후\n'
+			setting_val += '보스멍확인시간2 : ' + basicSetting[22] + ' 분 후\n'
 			if basicSetting[21] == "0":
 				setting_val += '보이스사용여부 : 사용안함\n'
 			else:
@@ -1318,7 +1329,7 @@ class mainCog(commands.Cog):
 					)
 			embed.add_field(
 					name="----- Special Thanks to. -----",
-					value= '```총무, 옹님, 공부중, 꽃신, 별빛, 크마, D.H.Kim, K.H.Sim, 쿠쿠, 오브로드, D.H.Oh, Bit, 팥빵, 천려, 이파리, 도미, 일깡```'
+					value= '```총무, 옹님, 공부중, 꽃신, 별빛, 크마, D.H.Kim, K.H.Sim, 쿠쿠, 오브로드, D.H.Oh, Bit, 팥빵, 천려, 이파리, 도미, 일깡, B.Park```'
 					)
 			await ctx.send(embed=embed, tts=False)
 		else:
@@ -1581,7 +1592,7 @@ class mainCog(commands.Cog):
 		global bossDateString
 
 		if ctx.message.channel.id == basicSetting[7]:
-			if basicSetting[2] != '0':
+			if basicSetting[2] != '0' and basicSetting[22] != '0':
 				for i in range(bossNum):
 					if bossMungFlag[i] == True:
 						bossTimeString[i] = tmp_bossTime[i].strftime('%H:%M:%S')
@@ -1849,47 +1860,48 @@ class mainCog(commands.Cog):
 		if ctx.message.channel.id == basicSetting[7]:
 			msg = ctx.message.content[len(ctx.invoked_with)+1:]
 			for i in range(bossNum):
-				tmp_msg = msg
-				if len(tmp_msg) > 3 :
-					if tmp_msg.find(':') != -1 :
-						chkpos = tmp_msg.find(':')
-						hours1 = tmp_msg[chkpos-2:chkpos]
-						minutes1 = tmp_msg[chkpos+1:chkpos+3]
-						now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
-						tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
-						tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
+				if bossTimeString[i] == '99:99:99':
+					tmp_msg = msg
+					if len(tmp_msg) > 3 :
+						if tmp_msg.find(':') != -1 :
+							chkpos = tmp_msg.find(':')
+							hours1 = tmp_msg[chkpos-2:chkpos]
+							minutes1 = tmp_msg[chkpos+1:chkpos+3]
+							now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
+						else:
+							chkpos = len(tmp_msg)-2
+							hours1 = tmp_msg[chkpos-2:chkpos]
+							minutes1 = tmp_msg[chkpos:chkpos+2]
+							now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
 					else:
-						chkpos = len(tmp_msg)-2
-						hours1 = tmp_msg[chkpos-2:chkpos]
-						minutes1 = tmp_msg[chkpos:chkpos+2]
 						now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
-						tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
-						tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
-				else:
-					now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
-					tmp_now = now2
-					
-				bossFlag[i] = False
-				bossFlag0[i] = False
-				bossMungFlag[i] = False
-				bossMungCnt[i] = 1
+						tmp_now = now2
+						
+					bossFlag[i] = False
+					bossFlag0[i] = False
+					bossMungFlag[i] = False
+					bossMungCnt[i] = 1
 
-				if tmp_now > now2 :
-					tmp_now = tmp_now + datetime.timedelta(days=int(-1))
-					
-				if tmp_now < now2 : 
-					deltaTime = datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
-					while now2 > tmp_now :
-						tmp_now = tmp_now + deltaTime
-						bossMungCnt[i] = bossMungCnt[i] + 1
-					now2 = tmp_now
-					bossMungCnt[i] = bossMungCnt[i] - 1
-				else :
-					now2 = now2 + datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
-							
-				tmp_bossTime[i] = bossTime[i] = nextTime = now2
-				tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
-				tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
+					if tmp_now > now2 :
+						tmp_now = tmp_now + datetime.timedelta(days=int(-1))
+						
+					if tmp_now < now2 : 
+						deltaTime = datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+						while now2 > tmp_now :
+							tmp_now = tmp_now + deltaTime
+							bossMungCnt[i] = bossMungCnt[i] + 1
+						now2 = tmp_now
+						bossMungCnt[i] = bossMungCnt[i] - 1
+					else :
+						now2 = now2 + datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+								
+					tmp_bossTime[i] = bossTime[i] = nextTime = now2
+					tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
+					tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
 
 			await dbSave()
 			await dbLoad()
@@ -1900,6 +1912,82 @@ class mainCog(commands.Cog):
 		else:
 			return
 
+	################ 멍보스타임 일괄 설정 ################
+	@commands.command(name=command[40][0], aliases=command[40][1:])
+	async def mungBossInput_(self, ctx):
+		global basicSetting
+		global bossData
+		global fixed_bossData
+
+		global bossTime
+		global tmp_bossTime
+
+		global fixed_bossTime
+
+		global bossTimeString
+		global bossDateString
+		global tmp_bossTimeString
+		global tmp_bossDateString
+
+		global bossFlag
+		global bossFlag0
+		global bossMungFlag
+		global bossMungCnt
+		
+		if ctx.message.channel.id == basicSetting[7]:
+			msg = ctx.message.content[len(ctx.invoked_with)+1:]
+			for i in range(bossNum):
+				if bossData[i][2] == "1" and bossTimeString[i] == '99:99:99':
+					tmp_msg = msg
+					if len(tmp_msg) > 3 :
+						if tmp_msg.find(':') != -1 :
+							chkpos = tmp_msg.find(':')
+							hours1 = tmp_msg[chkpos-2:chkpos]
+							minutes1 = tmp_msg[chkpos+1:chkpos+3]
+							now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
+						else:
+							chkpos = len(tmp_msg)-2
+							hours1 = tmp_msg[chkpos-2:chkpos]
+							minutes1 = tmp_msg[chkpos:chkpos+2]
+							now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+							tmp_now = tmp_now.replace(hour=int(hours1), minute=int(minutes1))
+					else:
+						now2 = datetime.datetime.now() + datetime.timedelta(hours = int(basicSetting[0]))
+						tmp_now = now2
+						
+					bossFlag[i] = False
+					bossFlag0[i] = False
+					bossMungFlag[i] = False
+					bossMungCnt[i] = 1
+
+					if tmp_now > now2 :
+						tmp_now = tmp_now + datetime.timedelta(days=int(-1))
+						
+					if tmp_now < now2 : 
+						deltaTime = datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+						while now2 > tmp_now :
+							tmp_now = tmp_now + deltaTime
+							bossMungCnt[i] = bossMungCnt[i] + 1
+						now2 = tmp_now
+						bossMungCnt[i] = bossMungCnt[i] - 1
+					else :
+						now2 = now2 + datetime.timedelta(hours = int(bossData[i][1]), minutes = int(bossData[i][5]))
+								
+					tmp_bossTime[i] = bossTime[i] = nextTime = now2
+					tmp_bossTimeString[i] = bossTimeString[i] = nextTime.strftime('%H:%M:%S')
+					tmp_bossDateString[i] = bossDateString[i] = nextTime.strftime('%Y-%m-%d')
+
+			await dbSave()
+			await dbLoad()
+			await dbSave()
+			
+			await ctx.send('<멍보스 일괄 입력 완료>', tts=False)
+			print ("<멍보스 일괄 입력 완료>")
+		else:
+			return
 
 	################ 가장 근접한 보스타임 출력 ################ 
 	@commands.command(name=command[15][0], aliases=command[15][1:])
@@ -3067,7 +3155,7 @@ class mainCog(commands.Cog):
 		for i in range(len(inputData_voice_use)):
 			if inputData_voice_use[i].startswith("voice_use ="):
 				inputData_voice_use[i] = f"voice_use = 1\r"
-				basicSetting[7] = channel
+				basicSetting[21] = "1"
 		
 		result_voice_use = '\n'.join(inputData_voice_use)
 		
@@ -3093,19 +3181,20 @@ class mainCog(commands.Cog):
 				ctx.voice_client.stop()
 			await ctx.voice_client.disconnect(force=True)
 
-		inidata_text = open('test_setting.ini', 'r', encoding = 'utf-8')
-		inputData_text = inidata_text.readlines()
-		inidata_text.close()
-	
-		inidata_text = open('test_setting.ini', 'w', encoding = 'utf-8')				
-		for i in range(len(inputData_text)):
-			if inputData_text[i].startswith("voice_use ="):
-				inputData_text[i] = f"voice_use = 0\n"
-				basicSetting[25] = "0"
+		inidata_voice_use = repo.get_contents("test_setting.ini")
+		file_data_voice_use = base64.b64decode(inidata_voice_use.content)
+		file_data_voice_use = file_data_voice_use.decode('utf-8')
+		inputData_voice_use = file_data_voice_use.split('\n')
 		
-		inidata_text.writelines(inputData_text)
-		inidata_text.close()
-
+		for i in range(len(inputData_voice_use)):
+			if inputData_voice_use[i].startswith("voice_use ="):
+				inputData_voice_use[i] = f"voice_use = 0\r"
+				basicSetting[21] = "0"
+		
+		result_voice_use = '\n'.join(inputData_voice_use)
+		
+		contents = repo.get_contents("test_setting.ini")
+		repo.update_file(contents.path, "test_setting", result_voice_use, contents.sha)
 		return await ctx.send(f"```보이스를 사용하지 않도록 설정하였습니다.!```")
 
 	################ ?????????????? ################ 
@@ -3182,7 +3271,7 @@ class IlsangDistributionBot(commands.AutoShardedBot):
 			if basicSetting[21] == "1" and str(basicSetting[6]) in channel_voice_id:
 				await self.get_channel(basicSetting[6]).connect(reconnect=True)
 				print('< 음성채널 [' + self.get_channel(basicSetting[6]).name + '] 접속완료>')
-			else:
+			elif basicSetting[21] == "1" and str(basicSetting[6]) not in channel_voice_id:
 				print(f"설정된 음성채널 값이 없거나 잘못 됐습니다. 음성채널 접속 후 **[{command[5][0]}]** 명령어 먼저 입력하여 사용해주시기 바랍니다.")
 				await self.get_channel(int(basicSetting[7])).send(f"설정된 음성채널 값이 없거나 잘못 됐습니다. 음성채널 접속 후 **[{command[5][0]}]** 명령어 먼저 입력하여 사용해주시기 바랍니다.")
 			if basicSetting[8] != "":
