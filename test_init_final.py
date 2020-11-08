@@ -352,7 +352,7 @@ def init():
 	############## 일반보스 정보 리스트 #####################
 	for j in range(bossNum):
 		tmp_len = tmp_bossData[j][1].find(':')
-		f.append(tmp_bossData[j][0][13:])         #bossData[0] : 보스명
+		f.append(tmp_bossData[j][0][11:])         #bossData[0] : 보스명
 		f.append(tmp_bossData[j][1][10:tmp_len])  #bossData[1] : 시
 		f.append(tmp_bossData[j][2][13:])         #bossData[2] : 멍/미입력
 		f.append(tmp_bossData[j][3][20:])         #bossData[3] : 분전 알림멘트
