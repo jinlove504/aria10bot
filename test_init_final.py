@@ -970,7 +970,7 @@ class taskCog(commands.Cog):
 									await self.bot.get_channel(channel).send("```" + bossData[i][0] + ' ' + basicSetting[3] + '분 전 ' + bossData[i][3] + " [" +  bossTimeString[i] + "]```", tts=False)
 								try:
 									if basicSetting[21] == "1":
-										await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][2] + '알림1.mp3')
+										await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][0] + '알림1.mp3')
 								except:
 									pass
 
@@ -985,7 +985,7 @@ class taskCog(commands.Cog):
 									await self.bot.get_channel(channel).send("```" + bossData[i][0] + ' ' + basicSetting[1] + '분 전 ' + bossData[i][3] + " [" +  bossTimeString[i] + "]```", tts=False)
 								try:
 									if basicSetting[21] == "1":
-										await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][2] + '알림.mp3')
+										await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][0] + '알림.mp3')
 								except:
 									pass
 
@@ -1012,7 +1012,7 @@ class taskCog(commands.Cog):
 						await self.bot.get_channel(channel).send(embed=embed, tts=False)
 						try:
 							if basicSetting[21] == "1":
-								await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][2] + '젠.mp3')
+								await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][0] + '젠.mp3')
 						except:
 							pass
 
@@ -1061,7 +1061,7 @@ class taskCog(commands.Cog):
 										await self.bot.get_channel(channel).send(embed=embed, tts=False)
 										try:
 											if basicSetting[21] == "1":
-												await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][2] + '미입력.mp3')
+												await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][0] + '미입력.mp3')
 										except:
 											pass
 									################ 멍 보스 ################
@@ -1081,7 +1081,7 @@ class taskCog(commands.Cog):
 										await self.bot.get_channel(channel).send(embed=embed, tts=False)
 										try:
 											if basicSetting[21] == "1":
-												await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][2] + '멍.mp3')
+												await PlaySound(self.bot.voice_clients[0], './sound/' + bossData[i][0] + '멍.mp3')
 										except:
 											pass
 
